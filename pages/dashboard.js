@@ -12,5 +12,7 @@ export default function Main() {
     if (!session) router.push('/login')
   }, [status])
 
+
+  if (status === 'loading') return <p>Loading...</p>
   return <Dashboard session={session} />
 }

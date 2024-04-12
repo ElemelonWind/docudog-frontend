@@ -1,5 +1,5 @@
 import db from "@/firebase";
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore"; 
+import { collection, query, where, getDocs } from "firebase/firestore"; 
 
 export default async function handler(req, res) {
   const { email } = req.body;
@@ -12,6 +12,11 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: "Could not find user" });
     } else {
         const user = querySnapshot.docs[0].data();
+        if (!user.bots) {
+            return res.status(200).json({ 
+                bots: []
+            });
+        }
         return res.status(200).json({ 
             bots: user.bots
          });
