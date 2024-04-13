@@ -20,6 +20,7 @@ export default async function handler(req, res) {
         });
         const data = await links.json();
         newBot.links = data.data;
+        newBot.id = querySnapshot.docs[0].data().bots.length + 1;
 
         // date as mm/dd/yyyy
         const date = new Date();

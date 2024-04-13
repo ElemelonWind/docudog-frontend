@@ -43,35 +43,36 @@ const Register = () => {
     }
 
   return (
-    <div className="container mx-auto">
-        <div className="flex justify-center px-6 my-12">
+    <div className="container mx-auto flex justify-center items-center my-auto">
+        <div className="flex justify-center px-6 my-12 items-center grow">
             <div className="w-full xl:w-3/4 lg:w-11/12 flex">
                 <div
                     className="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-                    style={{ backgroundImage: "url('https://source.unsplash.com/Mv9hjnEUHR4/600x800')" }}
+                    style={{ backgroundImage: "url('https://source.unsplash.com/Mv9hjnEUHR4/600x800')",
+                    backgroundPosition: "center"}}
                 ></div>
                 <div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
-                    <h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
+                    <h3 className="pt-4 mt-10 text-3xl text-center">Create an Account!</h3>
                     <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
                         <div className="mb-4 md:flex md:justify-between">
-                            <div className="mb-4 md:mr-2 md:mb-0">
-                                <label className="block mb-2 text-sm font-bold text-gray-700" for="firstName">
+                            <div className="mb-4 md:mr-2 md:mb-0 grow">
+                                <label className="block mb-2 text-md font-bold text-gray-700" for="firstName">
                                     First Name
                                 </label>
                                 <input
-                                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    className="w-full px-3 py-2 text-md leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     id="firstName"
                                     type="text"
                                     placeholder="First Name"
                                     onChange={(e) => setFirstName(e.target.value)}
                                 />
                             </div>
-                            <div className="md:ml-2">
-                                <label className="block mb-2 text-sm font-bold text-gray-700" for="lastName">
+                            <div className="md:ml-2 grow">
+                                <label className="block mb-2 text-md font-bold text-gray-700" for="lastName">
                                     Last Name
                                 </label>
                                 <input
-                                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    className="w-full px-3 py-2 text-md leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     id="lastName"
                                     type="text"
                                     placeholder="Last Name"
@@ -80,11 +81,11 @@ const Register = () => {
                             </div>
                         </div>
                         <div className="mb-4">
-                            <label className="block mb-2 text-sm font-bold text-gray-700" for="email">
+                            <label className="block mb-2 text-md font-bold text-gray-700" for="email">
                                 Email
                             </label>
                             <input
-                                className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                className="w-full px-3 py-2 mb-3 text-md leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                 id="email"
                                 type="email"
                                 placeholder="Email"
@@ -92,24 +93,24 @@ const Register = () => {
                             />
                         </div>
                         <div className="mb-4 md:flex md:justify-between">
-                            <div className="mb-4 md:mr-2 md:mb-0">
-                                <label className="block mb-2 text-sm font-bold text-gray-700" for="password">
+                            <div className="mb-4 md:mr-2 md:mb-0 grow">
+                                <label className="block mb-2 text-md font-bold text-gray-700" for="password">
                                     Password
                                 </label>
                                 <input
-                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    className="w-full px-3 py-2 mb-3 text-md leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     id="password"
                                     type="password"
                                     placeholder="******************"
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <div className="md:ml-2">
-                                <label className="block mb-2 text-sm font-bold text-gray-700" for="c_password">
+                            <div className="md:ml-2 grow">
+                                <label className="block mb-2 text-md font-bold text-gray-700" for="c_password">
                                     Confirm Password
                                 </label>
                                 <input
-                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    className="w-full px-3 py-2 mb-3 text-md leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     id="c_password"
                                     type="password"
                                     placeholder="******************"
@@ -119,7 +120,7 @@ const Register = () => {
                         </div>
                         <div className="mb-6 text-center">
                             <button
-                                className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                                className="transition duration-500 border-2 border-yellow-400 hover:border-yellow-600 text-lg w-full px-4 py-2 font-bold text-white bg-yellow-500 rounded-full hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
                                 type="button"
                                 onClick={register}
                             >
@@ -129,7 +130,7 @@ const Register = () => {
                         <hr className="mb-6 border-t" />
                         <div className="text-center">
                             <a
-                                className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                                className="inline-block text-md text-yellow-500 align-baseline hover:text-yellow-800"
                                 href="./login"
                             >
                                 Already have an account? Login!

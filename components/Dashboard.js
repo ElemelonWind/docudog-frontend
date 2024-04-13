@@ -7,6 +7,7 @@ const Dashboard = ({
 
   const [bots, setBots] = useState([])
   const [showModal, setShowModal] = useState(false)
+  const [helpModal, setHelpModal] = useState(false)
   const [newBot, setNewBot] = useState({
     name: '',
     seedLink: ''
@@ -51,75 +52,85 @@ const Dashboard = ({
     <>
     <div className="container mx-auto">
     <div className="flex justify-center px-6 my-12">
-      <div className="w-full xl:w-3/4 lg:w-11/12 bg-white p-5 rounded-lg">
+      <div className="w-full xl:w-3/4 lg:w-11/12 bg-white py-10 px-12 rounded-lg">
         <div className="flex">
-          <h1 className="text-2xl font-semibold text-gray-800 w-full">Welcome, {session?.user?.firstName}!</h1>
-          <div className="justify-items-end">
-          <button onClick={() => {
-            signOut()
-            window.location.href = '/login'
-          }}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-max"
-          >Sign out</button>
+          <h1 className="text-3xl font-semibold text-gray-800 w-full">Welcome, {session?.user?.firstName}!</h1>
+          <div className="justify-items-end grow flex gap-4">
+            <button onClick={() => {
+              setHelpModal(true)
+            }}
+            className="transition duration-500 bg-purple-500 hover:border-purple-600 border-2 border-purple-400 hover:bg-purple-700 text-white text-lg font-bold py-2 px-8 rounded-full w-max shadow-md"
+            >Help</button>
+            <button onClick={() => {
+              signOut()
+              window.location.href = '/login'
+            }}
+            className="transition duration-500 bg-purple-500 hover:border-purple-600 border-2 border-purple-400 hover:bg-purple-700 text-white text-lg font-bold py-2 px-8 rounded-full w-max shadow-md"
+            >Sign out</button>
           </div>
         </div>
-        <div className="grid gap-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
+        <div className="grid mt-4 gap-8 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {bots.map(bot => (
-              <div class="max-w-sm rounded overflow-hidden shadow-lg" key={bot.id}>
-                <div class="px-6 py-4">
-                  <div class="font-bold text-xl mb-2">{bot.name}</div>
-                  <p class="text-blue-700 text-base">
+              <button className="border-2 border-gray-200 max-w-sm rounded overflow-hidden shadow-xl hover:scale-105 transition duration-500 text-left" key={bot.id}
+                onClick={() => {
+                  window.location.href = `/bot?id=${bot.id}`
+                }}
+              >
+                <div className="px-6 py-4">
+                  <div className="font-bold text-xl mb-2">{bot.name}</div>
+                  <p className="text-purple-700 text-base">
                     <a href={
                       bot.seedLink
-                    }>{bot.seedLink}</a>
+                    }
+                    classNameName="text-purple-700 hover:text-purple-900"
+                    >{bot.seedLink}</a>
                   </p>
                 </div>
-                <div class="px-6 pt-4 pb-2">
-                  <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{bot.date}</span>
+                <div className="px-6 pt-4 pb-4">
+                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{bot.date}</span>
                 </div>
-              </div>
+              </button>
             ))}
-            <div class="max-w-sm rounded overflow-hidden shadow-lg flex items-center ">
-              <div class="px-6 py-4 items-center text-center">
-                <button className="flex justify-center items-center"
-                  onClick={() => {
-                    setShowModal(true)
-                  }}
-                >
+            <button className="border-2 border-gray-200 max-w-sm rounded overflow-hidden shadow-xl flex items-center hover:scale-105 transition duration-500"
+            onClick={() => {
+              setShowModal(true)
+            }}>
+              <div className="px-6 py-4 items-center text-center">
+                <div className="flex justify-center items-center" >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="gray" className="w-1/3 h-1/3">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                   </svg>
-                </button>
-                <div class="font-bold text-xl mb-2 text-gray-600">Create New Bot</div>
+                </div>
+                <div className="font-bold text-xl mb-2 text-gray-600">Create New Bot</div>
               </div>
-            </div>
+            </button>
         </div>
       </div>
     </div>
   </div>
   {showModal && (
-    <div tabindex="-1" aria-hidden="true" class="flex backdrop-blur-sm overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-      <div class="relative p-4 w-full max-w-2xl max-h-full">
-          <div class="relative bg-white rounded-lg shadow">
-              <div class="flex items-center justify-between p-4 md:p-5">
-                  <h3 class="text-xl font-semibold text-gray-900">
-                      Add a new bot
+    <div tabindex="-1" aria-hidden="true" className="flex backdrop-blur-sm overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div className="relative p-4 w-full max-w-2xl max-h-full">
+          <div className="relative bg-white rounded-lg shadow py-4 px-6 border-2 border-gray-200">
+              <div className="flex items-center justify-between p-4 md:p-5">
+                  <h3 className="text-3xl font-semibold text-gray-900">
+                      Add a New Bot
                   </h3>
-                  <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  <button type="button" className="transition duration-500 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-md w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                     onClick={() => setShowModal(false)}
                   >
-                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                       </svg>
-                      <span class="sr-only">Close modal</span>
+                      <span className="sr-only">Close modal</span>
                   </button>
               </div>
-              <div class="p-4 md:p-5 space-y-4">
+              <div className="space-y-4 p-4 md:p-5">
                   <form>
-                      <div class="space-y-4">
+                      <div className="space-y-4">
                           <div>
-                              <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                              <input type="text" id="name" name="name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                              <label for="name" className="block text-md font-medium text-gray-700">Name</label>
+                              <input type="text" id="name" name="name" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 md:text-md"
                                 onChange={(e) => setNewBot({
                                   ...newBot,
                                   name: e.target.value
@@ -127,8 +138,8 @@ const Dashboard = ({
                               />
                           </div>
                           <div>
-                              <label for="seedLink" class="block text-sm font-medium text-gray-700">Seed Link</label>
-                              <input type="text" id="seedLink" name="seedLink" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                              <label for="seedLink" className="block text-md font-medium text-gray-700">Seed Link</label>
+                              <input type="text" id="seedLink" name="seedLink" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 md:text-md"
                                 onChange={(e) => setNewBot({
                                   ...newBot,
                                   seedLink: e.target.value
@@ -138,10 +149,40 @@ const Dashboard = ({
                       </div>
                   </form>
               </div>
-              <div class="flex items-center p-4 md:p-5">
-                  <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              <div className="flex items-center p-4 md:p-5">
+                  <button type="button" className="transition duration-500 hover:border-purple-600 border-2 border-purple-400 bg-purple-500 hover:bg-purple-700 text-white text-lg font-bold py-2 px-8 rounded-full w-max shadow-md"
                     onClick={() => addBot()}
                   >Confirm</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  )}
+  {helpModal && (
+    <div tabindex="-1" aria-hidden="true" className="flex backdrop-blur-sm overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div className="relative p-4 w-full max-w-2xl max-h-full">
+          <div className="relative bg-white rounded-lg shadow py-4 px-6 border-2 border-gray-200">
+              <div className="flex items-center justify-between p-4 md:p-5">
+                  <h3 className="text-3xl font-semibold text-gray-900">
+                      What is DocuDog?
+                  </h3>
+                  <button type="button" className="transition duration-500 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-md w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    onClick={() => setHelpModal(false)}
+                  >
+                      <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                      </svg>
+                      <span className="sr-only">Close modal</span>
+                  </button>
+              </div>
+              <div className="space-y-4 p-4 md:p-5">
+                  <div className="space-y-2">
+                      <p className="text-lg text-gray-700">
+                          DocuDog is a tool that allows you to create chat bots based on documentation or specs. 
+                          You can create a bot by providing a &quot;seed link&quot;, and DocuDog will scrape the data from all associated links, providing 
+                          you with a chat bot that has the capabilities to answer any questions you have!
+                      </p>
+                  </div>
               </div>
           </div>
       </div>
