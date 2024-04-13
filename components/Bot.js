@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ScrollContainer from "./ScrollContainer";
 import TypingAnimation from "./TypingAnimation";
+import Markdown from 'react-markdown'
 
 const Bot = ({ id, session }) => {
   const [bot, setBot] = useState({});
@@ -34,35 +35,29 @@ const Bot = ({ id, session }) => {
     }
     setMessages([...messages, { message, type: "user" }]);
     sendMessage(message).then((botMessage) => {
-        setMessages([...messages, { message, type: "user" }, { message: botMessage, type: "bot" }]);
+        setMessages([...messages, { message, type: "user" }, { message: botMessage, type: "model" }]);
         setLoading(false);
     });
     setMessage("");
 }
 
   const sendMessage = async (message) => {
-    console.log(messages)
-    
-    // add user message to messages
-    
-    // send message to bot
-    // const res = await fetch(`/api/sendMessage`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     links: bot.links,
-    //     history: messages,
-    //     message,
-    //   }),
-    // });
-    // const data = await res.json();
-    await new Promise(r => setTimeout(r, 1000));
-    const data = {
-        message: "Hello!",
-    }
-    // add bot message to messages
+    const res = await fetch(`/api/sendMessage`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        links: bot.links,
+        history: messages,
+        message,
+      }),
+    });
+    const data = await res.json();
+    // await new Promise(r => setTimeout(r, 1000));
+    // const data = {
+    //     message: "Hello!",
+    // }
     return data.message;
   }
 
@@ -108,17 +103,19 @@ const Bot = ({ id, session }) => {
                 <ScrollContainer>
                 {
                     messages.map((m, i) => {
-                        if (m.type == "bot") {
+                        if (m.type == "model") {
                             return ( 
-                                <div class={"flex mb-4 cursor-pointer ml-4" + (i == 0 ? " mt-4" : "")} key={i}>
-                                    <div class="flex max-w-96 bg-white rounded-lg p-3 gap-3">
-                                        <p class="text-gray-700">{m.message}</p>
+                                <div class={"flex mb-4 cursor-pointer mx-4" + (i == 0 ? " mt-4" : "")} key={i}>
+                                    <div class="flex max-w-full bg-white rounded-lg py-4 px-5 gap-3">
+                                        <p class="text-gray-700">
+                                            <Markdown className='prose'>{m.message}</Markdown>
+                                        </p>
                                     </div>
                                 </div>
                             )
                         } else {
                             return (
-                                <div class={"flex mb-4 justify-end cursor-pointer mr-4" + (i == 0 ? " mt-4" : "")} key={i}>
+                                <div class={"flex mb-4 justify-end cursor-pointer mx-4" + (i == 0 ? " mt-4" : "")} key={i}>
                                     <div class="flex max-w-96 bg-red-500 text-white rounded-lg p-3 gap-3">
                                         <p>{m.message}</p>
                                     </div>
@@ -128,7 +125,7 @@ const Bot = ({ id, session }) => {
                     })
                 }
                 {loading && 
-                    <div class="flex mb-4 cursor-pointer ml-4">
+                    <div class="flex mb-4 cursor-pointer mx-4">
                         <div class="flex max-w-96 bg-white rounded-lg px-4 py-4 gap-3">
                             <TypingAnimation />
                         </div>
