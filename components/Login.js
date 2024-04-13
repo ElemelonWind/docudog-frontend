@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
+import Head from 'next/head'
 
 const Login = () => {
 
@@ -27,6 +28,11 @@ const Login = () => {
     }
 
     return (
+		<>
+		<Head>
+			<title>Login</title>
+			<meta name="description" content="Login to your account" />
+		</Head>
         <div className="container mx-auto items-center my-auto flex justify-center">
 			<div className="flex justify-center px-6 my-12 items-center grow">
 				<div className="w-full xl:w-3/4 lg:w-11/12 flex py-12">
@@ -87,6 +93,7 @@ const Login = () => {
 				</div>
 			</div>
 		</div>
+		</>
     )
 }
 

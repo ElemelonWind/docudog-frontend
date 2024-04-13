@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
+import Head from "next/head";
+import Image from "next/image";
+import logo from "../public/logo.png";
 
 const Dashboard = ({ session }) => {
   const [bots, setBots] = useState([]);
@@ -54,14 +57,19 @@ const Dashboard = ({ session }) => {
 
   return (
     <>
+      <Head>
+        <title>Dashboard</title>
+        <meta name="description" content="Dashboard" />
+      </Head>
       <div className="container mx-auto h-full items-center my-auto flex justify-center h-5/6">
         <div className="flex justify-center px-6 py-12 h-full items-center grow w-full">
           <div className="w-full xl:w-3/4 lg:w-11/12 bg-white rounded-lg h-full relative shadow-lg">
             <div className="absolute h-32 w-full bg-white rounded-t-lg">
               <div className="flex py-10 px-12 w-full h-32">
-                <h1 className="text-3xl font-semibold text-gray-800 w-full">
+                <h1 className="text-4xl font-bold text-gray-800 w-full">
                   Welcome, {session?.user?.firstName}!
                 </h1>
+                {/* <Image src={logo} alt="logo" width={300} height={30} /> */}
                 <div className="justify-end flex gap-4 w-full h-full">
                   <button
                     onClick={() => {

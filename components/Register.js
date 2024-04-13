@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 const Register = () => {
 
@@ -43,6 +43,11 @@ const Register = () => {
     }
 
   return (
+    <>
+    <Head>
+        <title>Register</title>
+        <meta name="description" content="Register for an account" />
+    </Head>
     <div className="container mx-auto flex justify-center items-center my-auto">
         <div className="flex justify-center px-6 my-12 items-center grow">
             <div className="w-full xl:w-3/4 lg:w-11/12 flex">
@@ -141,6 +146,7 @@ const Register = () => {
             </div>
         </div>
     </div>
+    </>
   )
 }
 

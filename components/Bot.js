@@ -4,6 +4,7 @@ import ScrollContainer from "./ScrollContainer";
 import TypingAnimation from "./TypingAnimation";
 import Markdown from 'react-markdown'
 import Loading from "./Loading";
+import Head from "next/head";
 
 const Bot = ({ id, session }) => {
   const [bot, setBot] = useState({});
@@ -67,6 +68,11 @@ const Bot = ({ id, session }) => {
   }
 
   return (
+    <>
+    <Head>
+        <title>Chat Bot</title>
+        <meta name="description" content="Chat with a bot" />
+    </Head>
     <div class="container mx-auto items-center my-auto flex justify-center h-5/6">
       <div class="flex justify-center px-6 my-12 items-center grow h-full">
         <div class="w-full lg:w-11/12 flex h-full shadow-lg">
@@ -165,6 +171,7 @@ const Bot = ({ id, session }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
