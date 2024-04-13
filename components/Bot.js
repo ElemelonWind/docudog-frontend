@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ScrollContainer from "./ScrollContainer";
 import TypingAnimation from "./TypingAnimation";
 import Markdown from 'react-markdown'
+import Loading from "./Loading";
 
 const Bot = ({ id, session }) => {
   const [bot, setBot] = useState({});
@@ -22,7 +23,7 @@ const Bot = ({ id, session }) => {
         }),
       });
       const data = await res.json();
-      setBot(data.bots.find((b) => b.id === id));
+      setBot(data.bots.find((b) => b.id == id));
     };
 
     fetchBot();
@@ -59,6 +60,10 @@ const Bot = ({ id, session }) => {
     //     message: "Hello!",
     // }
     return data.message;
+  }
+
+  if (!bot) {
+    return <Loading />;
   }
 
   return (
@@ -105,9 +110,9 @@ const Bot = ({ id, session }) => {
                     messages.map((m, i) => {
                         if (m.type == "model") {
                             return ( 
-                                <div class={"flex mb-4 cursor-pointer mx-4" + (i == 0 ? " mt-4" : "")} key={i}>
-                                    <div class="flex max-w-full bg-white rounded-lg py-4 px-5 gap-3">
-                                        <p class="text-gray-700">
+                                <div className={"flex mb-4 cursor-pointer mx-4" + (i == 0 ? " mt-4" : "")} key={i}>
+                                    <div className="flex max-w-full bg-white rounded-lg py-4 px-5 gap-3">
+                                        <p className="text-gray-700">
                                             <Markdown className='prose'>{m.message}</Markdown>
                                         </p>
                                     </div>
@@ -115,9 +120,9 @@ const Bot = ({ id, session }) => {
                             )
                         } else {
                             return (
-                                <div class={"flex mb-4 justify-end cursor-pointer mx-4" + (i == 0 ? " mt-4" : "")} key={i}>
-                                    <div class="flex max-w-96 bg-red-500 text-white rounded-lg p-3 gap-3">
-                                        <p>{m.message}</p>
+                                <div className={"flex mb-4 justify-end cursor-pointer mx-4" + (i == 0 ? " mt-4" : "")} key={i}>
+                                    <div className="flex max-w-96 bg-red-500 text-white rounded-lg p-3 gap-3 text-wrap break-words">
+                                        <p className="w-full">{m.message}</p>
                                     </div>
                                 </div>
                             )
@@ -125,8 +130,8 @@ const Bot = ({ id, session }) => {
                     })
                 }
                 {loading && 
-                    <div class="flex mb-4 cursor-pointer mx-4">
-                        <div class="flex max-w-96 bg-white rounded-lg px-4 py-4 gap-3">
+                    <div className="flex mb-4 cursor-pointer mx-4">
+                        <div className="flex max-w-96 bg-white rounded-lg px-4 py-4 gap-3">
                             <TypingAnimation />
                         </div>
                     </div>
@@ -134,12 +139,12 @@ const Bot = ({ id, session }) => {
                 </ScrollContainer>
               </div>
 
-              <footer class="fixed bg-white p-0 w-full absolute bottom-0 h-20 flex items-center w-full rounded-br-lg">
-                <div class="flex items-center p-4 items-center w-full">
+              <footer className="fixed bg-white p-0 w-full absolute bottom-0 h-20 flex items-center w-full rounded-br-lg">
+                <div className="flex items-center p-4 items-center w-full">
                   <input
                     type="text"
                     placeholder="Type a message..."
-                    class="w-full p-2 rounded-md border border-gray-200 focus:outline-none focus:border-red-500"
+                    className="w-full p-2 rounded-md border border-gray-200 focus:outline-none focus:border-red-500"
                     onChange={(e) => setMessage(e.target.value)}
                     value={message}
                     onKeyDown={(e) => {
@@ -148,7 +153,7 @@ const Bot = ({ id, session }) => {
                         }
                     }}
                   />
-                  <button class="bg-red-500 text-white px-4 py-2 rounded-md ml-2"
+                  <button className="bg-red-500 text-white px-4 py-2 rounded-md ml-2"
                     onClick={handleSubmit}
                   >
                     Send

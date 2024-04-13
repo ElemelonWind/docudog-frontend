@@ -5,12 +5,14 @@ const Dashboard = ({ session }) => {
   const [bots, setBots] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [helpModal, setHelpModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [newBot, setNewBot] = useState({
     name: "",
     seedLink: "",
   });
 
   const addBot = async () => {
+    setLoading(true);
     const res = await fetch("/api/addBot", {
       method: "POST",
       headers: {
@@ -21,8 +23,13 @@ const Dashboard = ({ session }) => {
         newBot,
       }),
     });
+    if (!res.ok) {
+      alert("Error adding bot. Please try again.");
+      return;
+    }
     const data = await res.json();
     setBots(data.bots);
+    setLoading(false);
     setShowModal(false);
   };
 
@@ -227,6 +234,7 @@ const Dashboard = ({ session }) => {
                   Confirm
                 </button>
               </div>
+              {loading && <div className="px-4 mb-4 text-md">Generating bot... please wait</div>}
             </div>
           </div>
         </div>

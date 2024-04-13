@@ -2,6 +2,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Dashboard from '@/components/Dashboard'
+import Loading from '@/components/Loading'
 
 export default function Main() {
   const { data: session, status } = useSession()
@@ -13,6 +14,6 @@ export default function Main() {
   }, [status])
 
 
-  if (status === 'loading') return <p>Loading...</p>
+  if (status === 'loading') return <Loading />
   return <Dashboard session={session} />
 }

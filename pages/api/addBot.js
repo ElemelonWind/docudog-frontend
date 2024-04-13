@@ -18,6 +18,10 @@ export default async function handler(req, res) {
             },
             body: JSON.stringify({ url: newBot.seedLink })
         });
+        if (!links.ok) {
+            return res.status(400).json({ message: "Could not get links" });
+        }
+
         const data = await links.json();
         newBot.links = data.data;
         newBot.id = querySnapshot.docs[0].data().bots.length + 1;

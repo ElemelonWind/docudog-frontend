@@ -14,7 +14,7 @@ export default function SignIn() {
         if (!session) router.push('/login')
     }, [status])
 
-    if (status === 'loading') return <p>Loading...</p>
+    if (status === 'loading') return <p></p>
 
   return <Bot id={id} session={session} />;
 }

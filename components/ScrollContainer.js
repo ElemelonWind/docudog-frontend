@@ -33,7 +33,8 @@ export default function ScrollContainer({children}) {
         style={{
           position: "relative", 
           height: "100%", 
-          overflowY: "auto"
+          overflowY: "auto",
+          overflowX: "hidden"
          }}
       >
         <div
